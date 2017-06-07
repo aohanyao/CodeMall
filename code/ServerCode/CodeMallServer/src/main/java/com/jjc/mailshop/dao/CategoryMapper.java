@@ -17,5 +17,5 @@ public interface CategoryMapper {
 
     int updateByPrimaryKey(Category record);
 
-    List<Category> selectCategoryByParentId(String parentId);
+    List<Category> selectCategoryByParentId(int parentId);
 }

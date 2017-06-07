@@ -20,7 +20,7 @@ public class CategoryServiceImp implements ICategoryService {
     @Override
     public ServerResponse<List<Category>> getCategoryByParentId(String parentId) {
         //根据id查询数据
-        List<Category> categories = mCategoryMapper.selectCategoryByParentId(parentId);
+        List<Category> categories = mCategoryMapper.selectCategoryByParentId(Integer.parseInt(parentId));
         //判断数据
         if (categories == null) {
             return ServerResponse.createBySuccessMessage("没有相关数据");
@@ -56,8 +56,8 @@ public class CategoryServiceImp implements ICategoryService {
         Category category = new Category();
         category.setId(Integer.parseInt(categoryId));
         category.setName(categoryName);
-        //插入数据 影响行数大于0 代表成功
-        if (mCategoryMapper.insertSelective(category) > 0) {
+        //修改数据 影响行数大于0 代表成功
+        if (mCategoryMapper.updateByPrimaryKeySelective(category) > 0) {
             return ServerResponse.createBySuccessMessage("修改成功");
         }
         //返回失败结果
