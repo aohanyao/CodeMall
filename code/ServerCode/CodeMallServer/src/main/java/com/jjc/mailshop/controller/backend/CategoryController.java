@@ -1,5 +1,6 @@
 package com.jjc.mailshop.controller.backend;
 
+import com.jjc.mailshop.common.CheckUserPermissionUtil;
 import com.jjc.mailshop.common.Conts;
 import com.jjc.mailshop.common.ServerResponse;
 import com.jjc.mailshop.pojo.Category;
@@ -62,31 +63,13 @@ public class CategoryController {
     public ServerResponse<String> addCategory(@RequestParam(value = "parentId", defaultValue = "0") String parentId,
                                               String categoryName, HttpSession session) {
         //检查权限
-        ServerResponse<String> mPermission = checkLoginAndPermission(session);
+        ServerResponse<String> mPermission = CheckUserPermissionUtil.checkLoginAndPermission(session);
         if (mPermission != null) return mPermission;
 
         //调用服务层增加产品类别
         return iCategoryService.addCategory(parentId, categoryName);
     }
 
-    /**
-     * 检查登录与用户权限
-     *
-     * @param session
-     * @return
-     */
-    private ServerResponse<String> checkLoginAndPermission(HttpSession session) {
-        //判断有没有登陆
-        User mUser = (User) session.getAttribute(Conts.CURRENT_USER);
-        if (mUser == null) {
-            return ServerResponse.createByErrorMessage("用户未登录");
-        }
-        //判断用户是不是管理员
-        if (mUser.getRole() != Conts.Role.ROLE_ADMIN) {
-            return ServerResponse.createByErrorMessage("无权限操作");
-        }
-        return null;
-    }
 
     /**
      * 修改品类
@@ -100,10 +83,11 @@ public class CategoryController {
     @ResponseBody
     public ServerResponse<String> updateCategory(String categoryId, String categoryName, HttpSession session) {
         //检查权限
-        ServerResponse<String> mPermission = checkLoginAndPermission(session);
+        ServerResponse<String> mPermission = CheckUserPermissionUtil.checkLoginAndPermission(session);
         if (mPermission != null) return mPermission;
 
         //调用服务层进行修改
         return iCategoryService.updateCategory(categoryId, categoryName);
     }
+
 }
