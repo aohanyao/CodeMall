@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by jjc on 2017/6/7.
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping(value = "/manager/product/")
 @Controller
 public class ProductManagerController {
+
     @Autowired
     IProductService iProductService;
 
@@ -83,6 +86,13 @@ public class ProductManagerController {
         return iProductService.updateProduct(product);
     }
 
+    /**
+     * 增加一个商品
+     *
+     * @param product
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "addProduct.json", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> addProduct(Product product, HttpSession session) {
@@ -98,5 +108,27 @@ public class ProductManagerController {
         }
         //调用接口进行添加
         return iProductService.addProduct(product);
+    }
+
+    /**
+     * 获取产品列表
+     * @param session
+     * @param pageSize
+     * @param pageIndex
+     * @return
+     */
+    @RequestMapping(value = "getProductList.json", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<List<Product>> getProductList(HttpSession session,
+                                                        @RequestParam(value = "pageSize", defaultValue = "1") Integer pageSize,
+                                                        @RequestParam(value = "pageIndex", defaultValue = "10") Integer pageIndex) {
+        //检查登录与权限
+        ServerResponse permission = CheckUserPermissionUtil.checkLoginAndPermission(session);
+        if (permission != null) {
+            return permission;
+        }
+        //调用接口查询
+
+        return null;
     }
 }

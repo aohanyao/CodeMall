@@ -1,11 +1,15 @@
 package com.jjc.mailshop.service.imp;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jjc.mailshop.common.ServerResponse;
 import com.jjc.mailshop.dao.ProductMapper;
 import com.jjc.mailshop.pojo.Product;
 import com.jjc.mailshop.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by jjc on 2017/6/7.
@@ -65,5 +69,16 @@ public class ProductServiceImp implements IProductService {
         }
         //修改失败
         return ServerResponse.createByErrorMessage("新增失败");
+    }
+
+    @Override
+    public ServerResponse<PageInfo> getProductList(Integer pageSize, Integer pageIndex) {
+        //设置开始页数
+        PageHelper.startPage(pageIndex, pageSize);
+        List<Product> products = productMapper.selectProduct();
+
+        PageInfo<List<Product>> pageInfo = new PageInfo(products);
+        //返回数据
+        return ServerResponse.createBySuccess("查询成功", pageInfo);
     }
 }
