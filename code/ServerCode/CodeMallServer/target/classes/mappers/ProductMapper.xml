@@ -176,11 +176,52 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+<<<<<<< HEAD
 
     <select id="selectProduct" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM
         mmall_product
+=======
+    <select id="getAllProduct" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mmall_product
+        ORDER BY id asc
+    </select>
+
+    <select id="searchProductByNameOrId" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mmall_product
+        <where>
+            <if test="productId != null">
+                and id = #{productId}
+            </if>
+            <if test="productName != null">
+                and name like #{productName}
+            </if>
+
+        </where>
+
+    </select>
+
+    <select id="selectByCategoryId" resultMap="BaseResultMap" parameterType="string">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mmall_product
+        WHERE category_id = #{categoryId}
+    </select>
+    <select id="selectByLikeName" resultMap="BaseResultMap" parameterType="string">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mmall_product
+        <where>
+            <if test="keword !=null">
+                and name LIKE #{keword}
+            </if>
+        </where>
+>>>>>>> b5c0339e9263079bc89779bd7c5e6d1e104f016e
     </select>
 </mapper>

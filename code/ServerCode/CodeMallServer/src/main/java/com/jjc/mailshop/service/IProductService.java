@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by jjc on 2017/6/7.
  * <p>产品相关的服务</p>
@@ -49,9 +51,47 @@ public interface IProductService {
 
     /**
      * 获取产品列表
+     *
      * @param pageSize
      * @param pageIndex
      * @return
      */
     ServerResponse<PageInfo> getProductList(Integer pageSize, Integer pageIndex);
+
+    /**
+     * @param pageIndex 页码
+     * @param pageSize  页大小
+     * @return
+     */
+    ServerResponse<PageInfo<Product>> getProductList(int pageIndex, int pageSize);
+
+    /**
+     * 搜索
+     *
+     * @param productName 产品名称
+     * @param productId   产品id
+     * @param pageIndex   页码
+     * @param pageSize    页大小
+     * @return
+     */
+    ServerResponse<PageInfo<Product>> searchProductList(String productName,
+                                                        String productId,
+                                                        int pageIndex,
+                                                        int pageSize);
+
+    /**
+     * <p>前台搜索产品</p>
+     *
+     * @param categoryId 品类ID
+     * @param keyword    关键字
+     * @param orderBy    排序方式
+     * @param pageIndex  页码
+     * @param pageSize   页大小
+     * @return
+     */
+    ServerResponse<PageInfo<Product>> searchProductByCategoryIdOrLikeName(String categoryId,
+                                                                          String keyword,
+                                                                          String orderBy,
+                                                                          int pageIndex,
+                                                                          int pageSize);
 }
