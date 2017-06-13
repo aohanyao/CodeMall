@@ -67,4 +67,20 @@ public interface IProductService {
                                                         String productId,
                                                         int pageIndex,
                                                         int pageSize);
+
+    /**
+     * <p>前台搜索产品</p>
+     *
+     * @param categoryId 品类ID
+     * @param keyword    关键字
+     * @param orderBy    排序方式
+     * @param pageIndex  页码
+     * @param pageSize   页大小
+     * @return
+     */
+    ServerResponse<PageInfo<Product>> searchProductByCategoryIdOrLikeName(String categoryId,
+                                                                          String keyword,
+                                                                          String orderBy,
+                                                                          int pageIndex,
+                                                                          int pageSize);
 }

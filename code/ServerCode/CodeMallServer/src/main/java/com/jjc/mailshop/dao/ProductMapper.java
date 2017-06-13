@@ -22,4 +22,8 @@ public interface ProductMapper {
 
     List<Product> searchProductByNameOrId(@Param("productId") String productId,
                                           @Param("productName") String productName);
+
+    List<Product> selectByCategoryId(String categoryId);
+
+    List<Product> selectByLikeName(@Param("keword") String keword);
 }

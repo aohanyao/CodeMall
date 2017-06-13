@@ -8,14 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>你好啊 世界</title>
+    <title>empty</title>
 </head>
 <body>
-你好 世界！
-<ui>
-    <li>你好</li>
-    <li>世界</li>
-    <li>！！</li>
-</ui>
+
 </body>
 </html>

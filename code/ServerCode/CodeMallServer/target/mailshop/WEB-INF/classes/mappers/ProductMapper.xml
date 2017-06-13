@@ -198,4 +198,21 @@
         </where>
 
     </select>
+
+    <select id="selectByCategoryId" resultMap="BaseResultMap" parameterType="string">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mmall_product
+        WHERE category_id = #{categoryId}
+    </select>
+    <select id="selectByLikeName" resultMap="BaseResultMap" parameterType="string">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM mmall_product
+        <where>
+            <if test="keword !=null">
+                and name LIKE #{keword}
+            </if>
+        </where>
+    </select>
 </mapper>
