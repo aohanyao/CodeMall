@@ -1,5 +1,6 @@
 package com.jjc.mailshop.controller.backend
 
+import com.github.pagehelper.PageInfo
 import com.jjc.mailshop.common.CheckUserPermissionUtil
 import com.jjc.mailshop.common.ServerResponse
 import com.jjc.mailshop.pojo.Product
@@ -9,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.multipart.MultipartFile
+import javax.servlet.http.HttpServletRequest
 
 import javax.servlet.http.HttpSession
 
@@ -105,4 +109,44 @@ class ProductManagerController {
         //调用接口进行添加
         return iProductService!!.addProduct(product)
     }
+
+    /**
+     * 获取产品列表
+     */
+    @RequestMapping(value = "getProductList.json", method = arrayOf(RequestMethod.POST))
+    @ResponseBody
+    fun getProductList(@RequestParam(value = "pageIndex", defaultValue = "1") pageIndex: Int,
+                       @RequestParam(value = "pageSize", defaultValue = "10") pageSize: Int,
+                       session: HttpSession): ServerResponse<PageInfo<Product>> {
+        //检查登录与权限
+        val permission = CheckUserPermissionUtil.checkLoginAndPermission(session)
+        if (permission != null) {
+            return ServerResponse.createByErrorMessage(permission.msg)
+        }
+        //调用接口获取数据
+        return iProductService!!.getProductList(pageIndex, pageSize)
+    }
+
+    /**
+     * 搜索产品
+     */
+    @RequestMapping(value = "searchProduct.json", method = arrayOf(RequestMethod.POST))
+    @ResponseBody
+    fun searchProduct(@RequestParam(value = "productName", defaultValue = "") productName: String,
+                      @RequestParam(value = "productId", defaultValue = "") productId: String,
+                      @RequestParam(value = "pageIndex", defaultValue = "1") pageIndex: Int,
+                      @RequestParam(value = "pageSize", defaultValue = "10") pageSize: Int,
+                      session: HttpSession): ServerResponse<PageInfo<Product>> {
+
+        //检查登录与权限
+        val permission = CheckUserPermissionUtil.checkLoginAndPermission(session)
+        if (permission != null) {
+            return ServerResponse.createByErrorMessage(permission.msg)
+        }
+
+        //调用接口搜索数据
+        return iProductService!!.searchProductList(productName, productId, pageIndex, pageSize)
+    }
+
+
 }
