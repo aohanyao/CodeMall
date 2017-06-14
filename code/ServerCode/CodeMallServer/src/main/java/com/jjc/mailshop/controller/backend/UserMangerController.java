@@ -31,7 +31,7 @@ public class UserMangerController {
         //登陆成功
         if (response.isSuccess()) {
             //存放用户到session
-            session.setAttribute(Conts.CURRENT_USER, response.getData());
+            session.setAttribute(Conts.CURRENT_ADMIN_USER, response.getData());
         }
         //返回结果
         return response;

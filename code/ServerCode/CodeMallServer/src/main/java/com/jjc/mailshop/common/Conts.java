@@ -12,6 +12,7 @@ public class Conts {
      * 存储用户的key
      */
     public static final String CURRENT_USER="current_user";
+    public static final String CURRENT_ADMIN_USER="current_admin_user";
     /**
      * 邮箱
      */

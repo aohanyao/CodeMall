@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
-import org.springframework.web.multipart.MultipartFile
-import javax.servlet.http.HttpServletRequest
 
 import javax.servlet.http.HttpSession
 
@@ -59,7 +57,7 @@ class ProductManagerController {
             return ServerResponse.createByErrorMessage<String>("参数status不正确")
         }
         //检查登录与权限
-        val permission = CheckUserPermissionUtil.checkLoginAndPermission(session)
+        val permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session)
         if (permission != null) {
             return permission
         }
@@ -80,7 +78,7 @@ class ProductManagerController {
     @ResponseBody
     fun updateProduct(product: Product, session: HttpSession): ServerResponse<String> {
         //检查登录与权限
-        val permission = CheckUserPermissionUtil.checkLoginAndPermission(session)
+        val permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session)
         if (permission != null) {
             return permission
         }
@@ -97,7 +95,7 @@ class ProductManagerController {
     @ResponseBody
     fun addProduct(product: Product, session: HttpSession): ServerResponse<String> {
         //检查登录与权限
-        val permission = CheckUserPermissionUtil.checkLoginAndPermission(session)
+        val permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session)
         if (permission != null) {
             return permission
         }
@@ -119,7 +117,7 @@ class ProductManagerController {
                        @RequestParam(value = "pageSize", defaultValue = "10") pageSize: Int,
                        session: HttpSession): ServerResponse<PageInfo<Product>> {
         //检查登录与权限
-        val permission = CheckUserPermissionUtil.checkLoginAndPermission(session)
+        val permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session)
         if (permission != null) {
             return ServerResponse.createByErrorMessage(permission.msg)
         }
@@ -139,7 +137,7 @@ class ProductManagerController {
                       session: HttpSession): ServerResponse<PageInfo<Product>> {
 
         //检查登录与权限
-        val permission = CheckUserPermissionUtil.checkLoginAndPermission(session)
+        val permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session)
         if (permission != null) {
             return ServerResponse.createByErrorMessage(permission.msg)
         }

@@ -63,7 +63,7 @@ public class CategoryController {
     public ServerResponse<String> addCategory(@RequestParam(value = "parentId", defaultValue = "0") String parentId,
                                               String categoryName, HttpSession session) {
         //检查权限
-        ServerResponse<String> mPermission = CheckUserPermissionUtil.checkLoginAndPermission(session);
+        ServerResponse<String> mPermission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session);
         if (mPermission != null) return mPermission;
 
         //调用服务层增加产品类别
@@ -83,7 +83,7 @@ public class CategoryController {
     @ResponseBody
     public ServerResponse<String> updateCategory(String categoryId, String categoryName, HttpSession session) {
         //检查权限
-        ServerResponse<String> mPermission = CheckUserPermissionUtil.checkLoginAndPermission(session);
+        ServerResponse<String> mPermission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session);
         if (mPermission != null) return mPermission;
 
         //调用服务层进行修改

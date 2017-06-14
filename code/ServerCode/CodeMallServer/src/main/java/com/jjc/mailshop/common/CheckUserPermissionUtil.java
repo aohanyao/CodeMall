@@ -10,14 +10,31 @@ import javax.servlet.http.HttpSession;
  */
 public class CheckUserPermissionUtil {
     /**
-     * 检查登录与用户权限
+     * 检查前台用户登陆
      *
      * @param session
      * @return
      */
-    public static ServerResponse<String> checkLoginAndPermission(HttpSession session) {
+    public static ServerResponse<User> checkUserLoginAndPermission(HttpSession session) {
         //判断有没有登陆
         User mUser = (User) session.getAttribute(Conts.CURRENT_USER);
+        if (mUser == null) {
+            return ServerResponse.createByErrorMessage("用户未登录");
+        }else{
+
+            return ServerResponse.createBySuccess("用户已登录",mUser);
+        }
+    }
+
+    /**
+     * 检查后台管理员登录与用户权限
+     *
+     * @param session
+     * @return
+     */
+    public static ServerResponse<String> checkAdminLoginAndPermission(HttpSession session) {
+        //判断有没有登陆
+        User mUser = (User) session.getAttribute(Conts.CURRENT_ADMIN_USER);
         if (mUser == null) {
             return ServerResponse.createByErrorMessage("用户未登录");
         }
@@ -27,4 +44,5 @@ public class CheckUserPermissionUtil {
         }
         return null;
     }
+
 }

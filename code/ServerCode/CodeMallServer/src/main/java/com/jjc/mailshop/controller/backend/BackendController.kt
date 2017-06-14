@@ -18,7 +18,7 @@ class BackendController {
     @ResponseBody
     fun checkIndex(session: HttpSession, response: HttpServletResponse): RedirectView {
         //检查登录与权限
-        val permission = CheckUserPermissionUtil.checkLoginAndPermission(session)
+        val permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session)
 
         if (permission == null) {
             return RedirectView("production/index.html")

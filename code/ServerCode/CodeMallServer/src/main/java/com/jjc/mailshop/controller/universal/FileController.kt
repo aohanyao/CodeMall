@@ -32,10 +32,10 @@ class FileController {
                    @RequestParam(value = "upload_file", required = false) file: MultipartFile,
                    request: HttpServletRequest): ServerResponse<String> {
         //检查登录与权限
-        val permission = CheckUserPermissionUtil.checkLoginAndPermission(session)
-        if (permission != null) {
-            return ServerResponse.createByErrorMessage(permission.msg)
-        }
+//        val permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session)
+//        if (permission != null) {
+//            return ServerResponse.createByErrorMessage(permission.msg)
+//        }
         //获取到文件路径
         var realPath = request.session.servletContext.getRealPath(Conts.UPLOAD_FILE)
         //开始上传图片

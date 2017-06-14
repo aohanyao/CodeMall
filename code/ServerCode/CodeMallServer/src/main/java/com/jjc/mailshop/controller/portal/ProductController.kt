@@ -38,7 +38,10 @@ class ProductController {
                        @RequestParam(value = "pageSize", defaultValue = "10") pageSize: Int): ServerResponse<PageInfo<Product>>? {
 
         //调用接口获取数据
-        return iProductService!!.searchProductByCategoryIdOrLikeName(categoryId, keyword, orderBy, pageIndex, pageSize)
+        val serverResponse = iProductService!!.searchProductByCategoryIdOrLikeName(categoryId, keyword, orderBy, pageIndex, pageSize)
+        //-----------------测试start
+
+        return serverResponse
     }
 
     /**
