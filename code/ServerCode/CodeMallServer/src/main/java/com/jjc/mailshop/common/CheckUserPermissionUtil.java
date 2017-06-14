@@ -15,7 +15,11 @@ public class CheckUserPermissionUtil {
      * @param session
      * @return
      */
+<<<<<<< HEAD
     public static ServerResponse<User> checkUserLoginAndPermission(HttpSession session) {
+=======
+    public static ServerResponse checkLoginAndPermission(HttpSession session) {
+>>>>>>> 1a2dc5b53bd735a441d30ea042b86e28da53cdd4
         //判断有没有登陆
         User mUser = (User) session.getAttribute(Conts.CURRENT_USER);
         if (mUser == null) {

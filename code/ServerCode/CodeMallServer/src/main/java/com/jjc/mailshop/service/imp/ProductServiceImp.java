@@ -2,7 +2,10 @@ package com.jjc.mailshop.service.imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+<<<<<<<HEAD
+        =======
 import com.jjc.mailshop.common.Conts;
+>>>>>>>b5c0339e9263079bc89779bd7c5e6d1e104f016e
 import com.jjc.mailshop.common.ServerResponse;
 import com.jjc.mailshop.dao.CategoryMapper;
 import com.jjc.mailshop.dao.ProductMapper;
@@ -78,12 +81,12 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    public ServerResponse<PageInfo<Product>> getProductList(int pageIndex, int pageSize) {
-        //查询数据
+    public ServerResponse<PageInfo> getProductList(Integer pageSize, Integer pageIndex) {
+        //设置开始页数
         PageHelper.startPage(pageIndex, pageSize);
-        List<Product> allProduct = mProductMapper.getAllProduct();
-        PageInfo<Product> pageInfo = new PageInfo<>(allProduct);
-        pageInfo.setList(allProduct);
+        List<Product> products = productMapper.selectProduct();
+
+        PageInfo<List<Product>> pageInfo = new PageInfo(products);
         //返回数据
         return ServerResponse.createBySuccess("查询成功", pageInfo);
     }

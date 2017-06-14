@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="MailShop:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="mailshop.war">
-      <element id="artifact" artifact-name="MailShop:war exploded" />
-    </root>
-  </artifact>
-</component>

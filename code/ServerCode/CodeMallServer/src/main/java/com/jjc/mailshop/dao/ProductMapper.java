@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -18,6 +20,7 @@ public interface ProductMapper {
 
     int updateByPrimaryKey(Product record);
 
+    List<Product> selectProduct();
     List<Product> getAllProduct();
 
     List<Product> searchProductByNameOrId(@Param("productId") String productId,

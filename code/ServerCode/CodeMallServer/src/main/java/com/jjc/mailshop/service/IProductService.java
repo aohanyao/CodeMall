@@ -4,6 +4,10 @@ import com.github.pagehelper.PageInfo;
 import com.jjc.mailshop.common.ServerResponse;
 import com.jjc.mailshop.pojo.Product;
 import com.sun.istack.internal.NotNull;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -48,6 +52,13 @@ public interface IProductService {
     /**
      * 获取产品列表
      *
+     * @param pageSize
+     * @param pageIndex
+     * @return
+     */
+    ServerResponse<PageInfo> getProductList(Integer pageSize, Integer pageIndex);
+
+    /**
      * @param pageIndex 页码
      * @param pageSize  页大小
      * @return
