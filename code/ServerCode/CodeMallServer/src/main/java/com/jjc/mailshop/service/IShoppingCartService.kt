@@ -41,7 +41,7 @@ interface IShoppingCartService {
      *  @param userId 用户信息
      *  @param cartId 购物车ID  以#号进行分割 客串
      */
-    fun removeShoppingCard(userId: Int, vararg cartId: Int): ServerResponse<CartProductVoList>
+    fun removeShoppingCard(userId: Int,  cartId: Array<Int>): ServerResponse<CartProductVoList>
 
     /**
      * 选中购物车内的某个商品

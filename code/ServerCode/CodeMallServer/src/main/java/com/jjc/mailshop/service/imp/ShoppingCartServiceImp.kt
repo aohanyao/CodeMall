@@ -28,6 +28,8 @@ class ShoppingCartServiceImp : IShoppingCartService {
         //查询出购物车的数据
         PageHelper.startPage<Cart>(pageIndex, pageSize)
         val mCarts = mCartMapper!!.selectByUserId(userId)
+
+
         val cartProductVoList: CartProductVoList = CartProductVoList()
 
         //根据购物车中的id，查询产品详情
@@ -38,6 +40,8 @@ class ShoppingCartServiceImp : IShoppingCartService {
             val cv: CartProductVo = CartProductVo()
             cv.id = it.id
             cv.userId = it.userId
+            cv.quantity = it.quantity
+            product.detail = ""
             cv.product = product
             //还有一些数据没有存放
             cv
@@ -53,7 +57,7 @@ class ShoppingCartServiceImp : IShoppingCartService {
         //判断是否已经下架了？？？？
 
         //判断原先是否存在了该商品
-        val exitCart = mCartMapper!!.selectByProductId(productId)
+        val exitCart = mCartMapper!!.selectByProductId(productId, userId)
 
         //没有查到相关的记录  新增
         if (exitCart == null) {
@@ -86,7 +90,7 @@ class ShoppingCartServiceImp : IShoppingCartService {
         //判断是否已经下架了？？？？
 
         //判断原先是否存在了该商品
-        val exitCart = mCartMapper!!.selectByProductId(productId)
+        val exitCart = mCartMapper!!.selectByProductId(productId, userId)
         exitCart?.quantity = count
 
         //查到相关的记录  修改
@@ -103,8 +107,8 @@ class ShoppingCartServiceImp : IShoppingCartService {
         return ServerResponse.createByErrorMessage("修改失败")
     }
 
-    override fun removeShoppingCard(userId: Int, vararg cartId: Int): ServerResponse<CartProductVoList> {
-
+    override fun removeShoppingCard(userId: Int,  cartId: Array<Int>): ServerResponse<CartProductVoList> {
+        //循环遍历删除
         cartId.forEach {
             mCartMapper!!.deleteByPrimaryKey(it)
         }

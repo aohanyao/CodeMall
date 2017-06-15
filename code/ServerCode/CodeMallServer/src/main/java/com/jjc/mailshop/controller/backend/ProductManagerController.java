@@ -54,7 +54,7 @@ public class ProductManagerController {
             return ServerResponse.createByErrorMessage("参数status不正确");
         }
         //检查登录与权限
-        ServerResponse<String> permission = CheckUserPermissionUtil.checkLoginAndPermission(session);
+        ServerResponse<String> permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session);
         if (permission != null) {
             return permission;
         }
@@ -73,7 +73,7 @@ public class ProductManagerController {
     @ResponseBody
     public ServerResponse<String> updateProduct(Product product, HttpSession session) {
         //检查登录与权限
-        ServerResponse<String> permission = CheckUserPermissionUtil.checkLoginAndPermission(session);
+        ServerResponse<String> permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session);
         if (permission != null) {
             return permission;
         }
@@ -97,7 +97,7 @@ public class ProductManagerController {
     @ResponseBody
     public ServerResponse<String> addProduct(Product product, HttpSession session) {
         //检查登录与权限
-        ServerResponse<String> permission = CheckUserPermissionUtil.checkLoginAndPermission(session);
+        ServerResponse<String> permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session);
         if (permission != null) {
             return permission;
         }
@@ -123,7 +123,7 @@ public class ProductManagerController {
                                                         @RequestParam(value = "pageSize", defaultValue = "1") Integer pageSize,
                                                         @RequestParam(value = "pageIndex", defaultValue = "10") Integer pageIndex) {
         //检查登录与权限
-        ServerResponse permission = CheckUserPermissionUtil.checkLoginAndPermission(session);
+        ServerResponse permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session);
         if (permission != null) {
             return permission;
         }

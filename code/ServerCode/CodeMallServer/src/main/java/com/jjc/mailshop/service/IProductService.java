@@ -49,21 +49,13 @@ public interface IProductService {
      */
     ServerResponse<String> addProduct(Product product);
 
-    /**
-     * 获取产品列表
-     *
-     * @param pageSize
-     * @param pageIndex
-     * @return
-     */
-    ServerResponse<PageInfo> getProductList(Integer pageSize, Integer pageIndex);
 
     /**
      * @param pageIndex 页码
      * @param pageSize  页大小
      * @return
      */
-    ServerResponse<PageInfo<Product>> getProductList(int pageIndex, int pageSize);
+    ServerResponse<PageInfo<Product>> getProductList(Integer pageSize, Integer pageIndex);
 
     /**
      * 搜索

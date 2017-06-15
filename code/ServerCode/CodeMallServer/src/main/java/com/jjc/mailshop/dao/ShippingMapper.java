@@ -2,6 +2,8 @@ package com.jjc.mailshop.dao;
 
 import com.jjc.mailshop.pojo.Shipping;
 
+import java.util.List;
+
 public interface ShippingMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface ShippingMapper {
     int updateByPrimaryKeySelective(Shipping record);
 
     int updateByPrimaryKey(Shipping record);
+
+    List<Shipping> selectByUserId(String userId);
 }

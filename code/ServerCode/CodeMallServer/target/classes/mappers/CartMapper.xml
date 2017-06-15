@@ -117,16 +117,21 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="selectByProductId" resultMap="BaseResultMap" parameterType="int">
+    <select id="selectByProductId" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="Base_Column_List"/>
+
         FROM mmall_cart
+
         WHERE product_id = #{productId}
+        and user_id = #{userId}
     </select>
 
     <select id="selectByUserId" resultMap="BaseResultMap" parameterType="int">
         SELECT
         <include refid="Base_Column_List"/>
+        FROM mmall_cart
+
         WHERE user_id = #{userId}
     </select>
     <update id="updateAllChecked" parameterType="int">

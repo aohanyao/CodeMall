@@ -182,6 +182,7 @@
         <include refid="Base_Column_List"/>
         FROM
         mmall_product
+    </select>
     <select id="getAllProduct" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>

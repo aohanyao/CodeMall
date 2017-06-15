@@ -2,9 +2,7 @@ package com.jjc.mailshop.controller.portal
 
 import com.jjc.mailshop.common.CheckUserPermissionUtil
 import com.jjc.mailshop.common.ServerResponse
-import com.jjc.mailshop.pojo.User
 import com.jjc.mailshop.service.IShoppingCartService
-import com.jjc.mailshop.vo.CartProductVo
 import com.jjc.mailshop.vo.CartProductVoList
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -66,5 +64,19 @@ class ShoppingCartController {
                 ?: return ServerResponse.createByErrorMessage("用户未登录")
 
         return iShoppingCartService!!.updateShoppingCard(user.id, productId, count)
+    }
+
+    /**
+     * 移除购物车的商品
+     */
+    @RequestMapping(value = "removeShoppingCard.json", method = arrayOf(RequestMethod.POST))
+    @ResponseBody
+    fun removeShoppingCard(session: HttpSession, cartIds: Array<Int>): ServerResponse<CartProductVoList>? {
+        //判断用户是否已经登录了  得到用户
+        val user = CheckUserPermissionUtil.checkUserLoginAndPermission(session).data
+                ?: return ServerResponse.createByErrorMessage("用户未登录")
+
+        //调用接口进行删除
+        return iShoppingCartService!!.removeShoppingCard(user.id, cartIds)
     }
 }
