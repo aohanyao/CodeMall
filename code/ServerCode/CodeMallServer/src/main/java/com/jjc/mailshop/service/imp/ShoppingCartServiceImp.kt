@@ -107,7 +107,8 @@ class ShoppingCartServiceImp : IShoppingCartService {
         return ServerResponse.createByErrorMessage("修改失败")
     }
 
-    override fun removeShoppingCard(userId: Int,  cartId: Array<Int>): ServerResponse<CartProductVoList> {
+    override fun removeShoppingCard(userId: Int, cartId: Array<Int>): ServerResponse<CartProductVoList> {
+        //TODO 这里有权限漏洞 ，当前用户会删除调其他用户的订单
         //循环遍历删除
         cartId.forEach {
             mCartMapper!!.deleteByPrimaryKey(it)

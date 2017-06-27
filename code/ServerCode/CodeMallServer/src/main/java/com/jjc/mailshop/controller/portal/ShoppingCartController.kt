@@ -24,7 +24,7 @@ class ShoppingCartController {
     var iShoppingCartService: IShoppingCartService? = null
 
     /**
-     * 获取用户的购物车
+     * 获取用户的购物车 商品
      */
     @RequestMapping(value = "getShoppingCartList.json", method = arrayOf(RequestMethod.POST))
     @ResponseBody
@@ -36,12 +36,11 @@ class ShoppingCartController {
                 ?: return ServerResponse.createByErrorMessage("用户未登录")
 
         //调用服务查询
-
         return iShoppingCartService!!.getShoppingCartList(user.id, pageIndex, pageSize)
     }
 
     /**
-     * 增加购物车
+     * 增加商品到购物车
      */
     @RequestMapping(value = "addShoppingCard.json", method = arrayOf(RequestMethod.POST))
     @ResponseBody
@@ -54,7 +53,7 @@ class ShoppingCartController {
     }
 
     /**
-     * 修改购物车
+     * 修改购物车中的某个商品
      */
     @RequestMapping(value = "updateShoppingCard.json", method = arrayOf(RequestMethod.POST))
     @ResponseBody
