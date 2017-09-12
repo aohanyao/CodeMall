@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession
 /**
  * Created by Administrator on 2017/6/15 0015.
  * <p>收货地址管理的控制器
+ * //实在是不想写了
  */
 @Controller
 @RequestMapping("/shopping/address/")
