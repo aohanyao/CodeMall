@@ -52,10 +52,10 @@ how much info to output:
         }
 
         function alertSeries(plot, series, datapoints) {
-            var msg = "series " + series.label;
+            var message = "series " + series.label;
             if (debugLevel > 1) {
-                msg += " with " + series.data.length + " points";
-                alert(msg);
+                message += " with " + series.data.length + " points";
+                alert(message);
             }
         }
 

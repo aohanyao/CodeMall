@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
-import java.util.concurrent.CopyOnWriteArrayList
 
 import javax.servlet.http.HttpSession
 
@@ -120,7 +119,7 @@ class ProductManagerController {
         //检查登录与权限
         val permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session)
         if (permission != null) {
-            return ServerResponse.createByErrorMessage(permission.msg)
+            return ServerResponse.createByErrorMessage(permission.message)
         }
         //调用接口获取数据
         return iProductService!!.getProductList(pageIndex, pageSize)
@@ -140,7 +139,7 @@ class ProductManagerController {
         //检查登录与权限
         val permission = CheckUserPermissionUtil.checkAdminLoginAndPermission(session)
         if (permission != null) {
-            return ServerResponse.createByErrorMessage(permission.msg)
+            return ServerResponse.createByErrorMessage(permission.message)
         }
 
         //调用接口搜索数据

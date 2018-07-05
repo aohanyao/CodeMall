@@ -9,12 +9,12 @@ import com.sun.istack.internal.NotNull
 import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
-
+import java.util.*
 import javax.servlet.http.HttpSession
-import java.util.UUID
 
 /**
  * Created by jjc on 2017/5/20.
@@ -25,7 +25,7 @@ import java.util.UUID
 @RequestMapping(value = "/user/")
 class UserController {
     @Autowired
-    internal var iUserService: IUserService? = null
+    lateinit var iUserService: IUserService
 
     /**
      * 登陆接口
@@ -36,7 +36,7 @@ class UserController {
     @ResponseBody
     fun login(username: String, password: String, session: HttpSession): ServerResponse<User> {
 
-        val serverResponse = iUserService!!.login(username, password)
+        val serverResponse = iUserService.login(username, password)
         if (serverResponse.isSuccess) {
             session.setAttribute(Conts.CURRENT_USER, serverResponse.data)
         }
@@ -53,11 +53,11 @@ class UserController {
      */
     @RequestMapping(value = "register.json", method = arrayOf(RequestMethod.POST))
     @ResponseBody
-    fun register(user: User): ServerResponse<String> {
+    fun register(@RequestBody user: User): ServerResponse<String> {
         //非空判断？？？
 
         //注册用户
-        return iUserService!!.register(user)
+        return iUserService.register(user)
     }
 
 
@@ -80,10 +80,10 @@ class UserController {
         when (type) {
             Conts.EMAIL ->
                 //邮箱
-                return iUserService!!.checkEmail(str)
+                return iUserService.checkEmail(str)
             Conts.USERNAME ->
                 //用户名
-                return iUserService!!.checkUsername(str)
+                return iUserService.checkUsername(str)
         }
         return ServerResponse.createByErrorMessage<String>("参数非法")
     }
@@ -98,7 +98,7 @@ class UserController {
     @RequestMapping(value = "getUserQuestion.json", method = arrayOf(RequestMethod.POST))
     @ResponseBody
     fun getUserQuestion(username: String): ServerResponse<String> {
-        return iUserService!!.getUserQuestion(username)
+        return iUserService.getUserQuestion(username)
     }
 
 
@@ -153,7 +153,7 @@ class UserController {
     fun validUserQuestionAndAnswer(username: String, question: String, answer: String): ServerResponse<String> {
 
         //查询用户
-        val userServerResponse = iUserService!!.validUserQuestionAndAnswer(username, question, answer)
+        val userServerResponse = iUserService.validUserQuestionAndAnswer(username, question, answer)
         //判断是否查询到用户
         if (userServerResponse.isSuccess) {
             //获取token
@@ -164,7 +164,7 @@ class UserController {
             return ServerResponse.createBySuccess("验证成功", token)
         }
         //返回错误
-        return ServerResponse.createByErrorMessage<String>(userServerResponse.msg)
+        return ServerResponse.createByErrorMessage<String>(userServerResponse.message)
     }
 
     /**

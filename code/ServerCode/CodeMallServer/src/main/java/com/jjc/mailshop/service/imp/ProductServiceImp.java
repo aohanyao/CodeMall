@@ -33,7 +33,7 @@ public class ProductServiceImp implements IProductService {
             return ServerResponse.createByErrorMessage("找不到该产品");
         }
         //已经下架的是否返回
-//        if (product.getStatus() == null || product.getStatus() == 0) {
+//        if (product.getCode() == null || product.getCode() == 0) {
 //            return ServerResponse.createByErrorMessage("改产品已下架");
 //        }
 

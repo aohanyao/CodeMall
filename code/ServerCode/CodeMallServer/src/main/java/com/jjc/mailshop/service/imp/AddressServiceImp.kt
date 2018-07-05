@@ -34,7 +34,7 @@ class AddressServiceImp : IAddressService {
         val addressDetails = getAddressDetails(shipping.id, userId)
         //不成功
         if (!addressDetails.isSuccess) {
-            return ServerResponse.createByErrorMessage(addressDetails.msg)
+            return ServerResponse.createByErrorMessage(addressDetails.message)
         }
 
         //调用 修改数据
@@ -50,7 +50,7 @@ class AddressServiceImp : IAddressService {
         val addressDetails = getAddressDetails(shippingId, userId)
         //不成功
         if (!addressDetails.isSuccess) {
-            return ServerResponse.createByErrorMessage(addressDetails.msg)
+            return ServerResponse.createByErrorMessage(addressDetails.message)
         }
 
         //调用 删除数据
